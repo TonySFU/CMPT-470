@@ -1,5 +1,4 @@
 p{
     color:blueviolet; 
-    font: bold 4em helvetica;  /* em size of the "m"*/
-    
+    font: bold 4em helvetica;  /* em size of the "m", becareful with the order*/
 };
