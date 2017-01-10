@@ -3,7 +3,7 @@ p{
     font: bold 4em helvetica;  /* em size of the "m", becareful with the order*/
     border: 4px dashed crimson;
     padding: 28px;
-    margin: 100px;
+    margin: 20px;
 }
 div{
     border:2px solid red;
