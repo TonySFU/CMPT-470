@@ -5,6 +5,10 @@ p{
     padding: 28px;
     margin: 20px;
 }
+p:hover{
+    color: blue;
+    border: solid green;
+}
 div{
     border:2px solid red;
 }
