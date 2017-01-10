@@ -7,7 +7,7 @@ p{
 }
 p:hover{
     color: blue;
-    border: solid green;
+    border: solid lightskyblue;
 }
 div{
     border:2px solid red;
