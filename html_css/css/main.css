@@ -1,4 +1,6 @@
 p{
     color:blueviolet; 
-    font-family: Helvetica
-}
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 5em;  /* em size of the "m"*/
+};
