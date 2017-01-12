@@ -2,25 +2,51 @@
 <html lang="en">
   <head>
     <title>Exercise 1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="playlist.css">
   </head>
   <body>
-    <div class="container">
-      <header>
-        <nav>
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#">Tab 1</a></li>
-            <li><a href="#">Tab 2</a></li>
-            <li><a href="#">Tab 3</a></li>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <ul class="nav">
+              <li class="library col-xs-4"><a href="#">
+                  <span class="glyphicon glyphicon-music"></span></br>
+                  <small>Library</small>
+              </a></li>
+              
+              <li class="playlists col-xs-4 active"><a href="#">
+                <span class="glyphicon glyphicon-th-list active"></span></br>
+                <small>Playlists</small>
+              </a></li>
+              
+              <li class="search col-xs-4" ><a href="#">
+                <span class="glyphicon glyphicon-search"></span></br>
+                <small>Search</small>
+              </a></li>
           </ul>
-        </nav>
-      </header>
+        </div>
+      </nav>
 
-      <section class="Playlists">
-        <div class="row">
-          <div class="col-lg-6">
+    <div class="container">
+        <div class = "row">
+          <ul class="nav nav-pills nav-stacked" role="tablist">
+            <li class="add_playlists"><a href="#">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  Playlist
+              </a></li>
+          </ul>
+
+          <ul class="nav nav-tabs nav-stacked" role="tablist">
+            <li role="presentation"><a href="#">Home</a></li>
+            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+          </ul>
+
+
+          <div class="col-xs-12">
             <h4>Subheading</h4>
             <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
@@ -29,20 +55,29 @@
 
             <h4>Subheading</h4>
             <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-          </div>
 
-          <div class="col-lg-6">
             <h4>Subheading</h4>
             <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
             <h4>Subheading</h4>
             <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
 
             <h4>Subheading</h4>
             <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
           </div>
         </div>
-      </section>
     </div>
   </body>
 </html>
