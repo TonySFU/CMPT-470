@@ -8,7 +8,7 @@
 .nav-tabs>li>a:active {
   background-color: #c6bed1;
 }
-.nav-tabs>li>a:focus {
+.nav-tabs>li>a:hover {
   background-color: #c6bed1;
 }
 
