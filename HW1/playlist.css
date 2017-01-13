@@ -6,10 +6,10 @@
   margin-right: 0px;
 }*/
 .nav-tabs>li>a:active {
-  background-color: rgb(131, 87, 151);
+  background-color: #c6bed1;
 }
 .nav-tabs>li>a:focus {
-  background-color: rgb(131, 87, 151);
+  background-color: #c6bed1;
 }
 
 .navbar {
