@@ -8,6 +8,9 @@
 .nav-tabs>li>a:active {
   background-color: rgb(131, 87, 151);
 }
+.nav-tabs>li>a:focus {
+  background-color: rgb(131, 87, 151);
+}
 
 .navbar {
   border-bottom-color:rgb(185,179,195);
