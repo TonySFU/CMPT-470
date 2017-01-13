@@ -38,6 +38,11 @@ small {
   color: rgb(129, 0, 130);
 }
 
+.nav-pills>li>a:hover{
+  background-color: #ac7cea;
+  color: white;
+}
+
 .add_playlists>a{
   font-size: 14px;
   text-align: center;
