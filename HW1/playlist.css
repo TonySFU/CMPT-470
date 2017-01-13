@@ -33,7 +33,7 @@ small {
   color: rgb(140, 140, 140);
 }
 
-.nav>li>a:active, .nav>li>a:hovers>small{
+.nav>li>a:active, .nav>li>a::active>small{
   color: rgb(129, 0, 130);
 }
 
@@ -46,6 +46,11 @@ small {
 }
 
 .nav-pills>li>a:hover{
+  background-color: #ac7cea;
+  color: white;
+}
+
+.nav-pills>li>a:focus{
   background-color: #ac7cea;
   color: white;
 }
