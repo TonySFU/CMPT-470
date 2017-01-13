@@ -35,9 +35,19 @@ small {
   margin:6px 6px 6px 6px;
 }
 .nav-pills>li>a{
-  padding: 4px 2px 4px 2px;
+  
 }
 
+.nav-tabs>li>a>span{
+ 
+}
+.playlists_cover {
+  height: 50px; width: 50px;
+}
+.playlists_name {
+  font-size: 16px;
+  text-align: center;
+}
 body {
 /*min-height: 1000px;*/
   padding-top: 70px;
