@@ -11,6 +11,9 @@
 .nav-tabs>li>a:hover {
   background-color: #c6bed1;
 }
+.nav-tabs>li>a:focus {
+  background-color: #c6bed1;
+}
 
 .navbar {
   border-bottom-color:rgb(185,179,195);
@@ -30,13 +33,19 @@ small {
   color: rgb(140, 140, 140);
 }
 
+.nav>li>a:active, .nav>li>a:hovers>small{
+  color: rgb(129, 0, 130);
+}
+
 .nav>li>a:hover, .nav>li>a:hover>small{
   color: rgb(129, 0, 130);
 }
 
-.nav>li>a:active, .nav>li>a:hovers>small{
+.nav>li>a:focus, .nav>li>a:focus>small{
   color: rgb(129, 0, 130);
 }
+
+
 
 .nav-pills>li>a:hover{
   background-color: #ac7cea;
