@@ -5,6 +5,10 @@
   margin-left: 0px;
   margin-right: 0px;
 }*/
+.nav-tabs>li>a:active {
+  background-color: rgb(131, 87, 151);
+}
+
 .navbar {
   border-bottom-color:rgb(185,179,195);
 }
@@ -34,19 +38,26 @@ small {
   background-color: rgb(147, 106, 199);
   margin:6px 6px 6px 6px;
 }
-.nav-pills>li>a{
-  
-}
 
-.nav-tabs>li>a>span{
- 
-}
 .playlists_cover {
   height: 50px; width: 50px;
 }
 .playlists_name {
+  margin-top: 15px;
   font-size: 16px;
   text-align: center;
+  color: rgb(131, 87, 151);
+}
+.glyphicon.glyphicon-chevron-right {
+  margin-top: 10px;
+  font-size: 30px;
+  text-align: center;
+  color: gray;
+}
+
+.horizontal_rule {
+  margin: 0px 0px 0px 0px;
+  border-top-color: rgb(151, 151, 151);
 }
 body {
 /*min-height: 1000px;*/
