@@ -30,7 +30,7 @@ small {
   color: rgb(140, 140, 140);
 }
 
-.active>a, .active>a>small {
+.nav>li>a:hover {
   color: rgb(129, 0, 130);
 }
 
