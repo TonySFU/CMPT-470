@@ -14,9 +14,9 @@ Layout must look correct on a variety of mobile screen sizes (hint: use the devi
 Passing the HTML into an HTML Validator should return no warnings or errors. 1 mark.
 
 # Summary
-I did all the requirements on the above, I found out using Chrome DevTools to emulate mobile screen was a little bit different with the real mobile device. So I did the test on my phone and made fully functional.
+I did all the requirements on the above, I found out using Chrome DevTools to emulate mobile screen was a little bit different on the real mobile device. So I did the test on my phone and made it fully functional.
 
-Here is my website on server. 
+Here is my website on server:
 
 [HW1][hw1]
 
