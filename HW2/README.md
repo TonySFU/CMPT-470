@@ -24,6 +24,7 @@
     * This search should happen for *every* character typed into the search bar. It should not happen on enter or anything like that.
     * Clicking the plus on the song should bring up the same "Add to Playlist" modal you get when clicking a song in the Library tab.
     * Clicking a playlist should navigate you to that Playlist, and you should no longer be on the Search tab (the Playlist tab should be selected in the UI).
+
 # Summary
 I did all the requirements on the above.
 
