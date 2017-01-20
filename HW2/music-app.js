@@ -79,3 +79,44 @@ for (var i = 0; i <= 0; i++) {
     firstListEl = songListEl.getElementsByTagName('li')[0];
     firstListElParent.removeChild(firstListEl);
 }
+
+var removeLibrary = function() {
+    for (var i = 1; i < window.MUSIC_DATA.songs.length; i++) {
+        firstListEl = songListEl.getElementsByTagName('li')[0];
+        firstListElParent.removeChild(firstListEl);
+    }
+}
+
+var selet_sortby_artist = document.getElementsByClassName("sort_by_artist");
+selet_sortby_artist[0].addEventListener('click', function(event) {
+    removeLibrary();
+    window.MUSIC_DATA.songs.sort(by('artist'));
+    for (var i = 0; i < window.MUSIC_DATA.songs.length; i++) {
+        var newNode = firstListEl.cloneNode(true);
+        var newNedeSongNameEl = newNode.getElementsByClassName('song-name')[0];
+        newNedeSongNameEl.textContent = window.MUSIC_DATA.songs[i].title;
+        newNode.getElementsByClassName('artist')[0].textContent = window.MUSIC_DATA.songs[i].artist;
+        firstListElParent.appendChild(newNode);
+    }
+    for (var i = 0; i <= 0; i++) {
+        firstListEl = songListEl.getElementsByTagName('li')[0];
+        firstListElParent.removeChild(firstListEl);
+    }
+}, false);
+
+var selet_sortby_title = document.getElementsByClassName("sort_by_title");
+selet_sortby_title[0].addEventListener('click', function(event) {
+    removeLibrary();
+    window.MUSIC_DATA.songs.sort(by('title'));
+    for (var i = 0; i < window.MUSIC_DATA.songs.length; i++) {
+        var newNode = firstListEl.cloneNode(true);
+        var newNedeSongNameEl = newNode.getElementsByClassName('song-name')[0];
+        newNedeSongNameEl.textContent = window.MUSIC_DATA.songs[i].title;
+        newNode.getElementsByClassName('artist')[0].textContent = window.MUSIC_DATA.songs[i].artist;
+        firstListElParent.appendChild(newNode);
+    }
+    for (var i = 0; i <= 0; i++) {
+        firstListEl = songListEl.getElementsByTagName('li')[0];
+        firstListElParent.removeChild(firstListEl);
+    }
+}, false);
