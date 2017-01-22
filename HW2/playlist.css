@@ -166,7 +166,7 @@ body {
 }
 
 .modal-overlay {
-    visibility: visible;
+    visibility: hidden;
     position: absolute;
     left: 0px;
     top: 0px;
