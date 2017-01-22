@@ -241,7 +241,6 @@ hit_close_playlist();
 //Click playlists and list song
 var click_playlist = document.getElementsByClassName("hidden_playlists")[0];
 var click_playlist_content = click_playlist.getElementsByTagName("li");
-
 for (var i = 0; i < click_playlist_content.length; i++) {
     //console.log(i);
     click_playlist_content[i].onclick = (function(index) {
@@ -268,14 +267,14 @@ for (var i = 0; i < click_playlist_content.length; i++) {
             removePlaylistLibrary();
             window.MUSIC_DATA.songs.sort(byID('id'));
             for (var i = 0; i < window.MUSIC_DATA.playlists[index].songs.length; i++) {
-                //   console.log(i);
+                //console.log(i);
                 var newNode = firstListEl.cloneNode(true);
                 var newNedeSongNameEl = newNode.getElementsByClassName('song-name')[0];
                 var songId = window.MUSIC_DATA.playlists[index].songs[i]
                 newNedeSongNameEl.textContent = window.MUSIC_DATA.songs[songId].title;
                 newNode.getElementsByClassName('artist')[0].textContent = window.MUSIC_DATA.songs[songId].artist;
                 firstListElParent.appendChild(newNode);
-                //   console.log(songId);
+                //console.log(songId);
             }
             hit_plus_btn();
         }
