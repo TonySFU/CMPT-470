@@ -32,4 +32,4 @@ Here is my website on server:
 
 [HW2][hw2]
 
-[hw2]: 
+[hw2]: http://sfo.tony95.com/CMPT-470/HW2/playlist.html#
