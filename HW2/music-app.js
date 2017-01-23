@@ -178,11 +178,12 @@ var search_exactly_same_songname_ID = function(name) {
     return ID;
 }
 
-var search_songname_IDs = function(name) {
+var search_SongnameOrArtist_IDs = function(name) {
     var IDs = [];
+    if (name === "") return IDs
     var re = new RegExp(name, "i");
     for (var i = 0; i < window.MUSIC_DATA.songs.length; i++) {
-        if (re.test(window.MUSIC_DATA.songs[i].title)) {
+        if (re.test(window.MUSIC_DATA.songs[i].title) || re.test(window.MUSIC_DATA.songs[i].artist)) {
             IDs.push(window.MUSIC_DATA.songs[i].id);
         }
     }
@@ -191,6 +192,7 @@ var search_songname_IDs = function(name) {
 
 var search_playlist_IDs = function(name) {
     var IDs = [];
+    if (name === "") return IDs
     var re = new RegExp(name, "i");
     for (var i = 0; i < window.MUSIC_DATA.playlists.length; i++) {
         if (re.test(window.MUSIC_DATA.playlists[i].name)) {
@@ -349,12 +351,56 @@ var choose_playlist = function(ID) {
     }
 }
 
-var display_search_result = function(playlistIDs, songIDs) {
+//init display_search_result
+var playlistLi = document.getElementsByClassName("search_playlists_element")[0];
+var playlistUl = playlistLi.parentNode;
+playlistUl.removeChild(playlistLi);
+var songlistLi = document.getElementsByClassName("search_songs_element")[0];
+var songlistUl = songlistLi.parentNode;
+songlistUl.removeChild(songlistLi);
 
+var display_playlist = function(Ul, Li, IDs) {
+    while (Ul.firstChild) { Ul.removeChild(Ul.firstChild); }
+    for (var i = 0; i < IDs.length; i++) {
+        var newNode = Li.cloneNode(true);
+        var newNodePlaylistNameEl = newNode.getElementsByClassName('playlists_name')[0];
+        newNodePlaylistNameEl.textContent = window.MUSIC_DATA.playlists[IDs[i]].name;
+        Ul.appendChild(newNode);
+    }
+}
+var display_songlist = function(Ul, Li, IDs) {
+    while (Ul.firstChild) { Ul.removeChild(Ul.firstChild); }
+    for (var i = 0; i < IDs.length; i++) {
+        var newNode = Li.cloneNode(true);
+        var newNedeSongNameEl = newNode.getElementsByClassName('song-name')[0];
+        newNedeSongNameEl.textContent = window.MUSIC_DATA.songs[IDs[i]].title;
+        newNode.getElementsByClassName('artist')[0].textContent = window.MUSIC_DATA.songs[IDs[i]].artist;
+        Ul.appendChild(newNode);
+    }
+}
+
+var hit_playlist_in_search = function() {
+    for (var i = 0; i < playlistUl.children.length; i++) {
+        playlistUl.childNodes[i].onclick = (function(index) {
+            return function() {
+                init_display();
+                var name = playlistUl.childNodes[index].getElementsByClassName("playlists_name")[0].textContent;
+                var ID = search_playlist_IDs(name)[0];
+                document.getElementsByClassName("playlists_element")[ID].click();
+            }
+        })(i)
+    }
+}
+var display_search_result = function(playlistIDs, songIDs) {
+    window.MUSIC_DATA.songs.sort(byID('id'));
+    display_playlist(playlistUl, playlistLi, playlistIDs);
+    display_songlist(songlistUl, songlistLi, songIDs);
+    hit_playlist_in_search();
+    hit_plus_btn();
 }
 
 var searchform = document.getElementById("searchform");
 searchform.addEventListener("input", function(event) {
     var input_value = searchform.value;
-    console.log(search_playlist_IDs(input_value));
+    display_search_result(search_playlist_IDs(input_value), search_SongnameOrArtist_IDs(input_value));
 }, false);
