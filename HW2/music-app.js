@@ -1,8 +1,24 @@
 //Defult in playlists
-document.getElementsByClassName("hidden_liarary_sort_btns")[0].style.display = "none";
-document.getElementsByClassName("hidden_library")[0].style.display = "none";
-document.getElementsByClassName("hidden_searchform")[0].style.display = "none";
-document.getElementsByClassName("hidden_playlist_display")[0].style.display = "none";
+// document.getElementsByClassName("hidden_liarary_sort_btns")[0].style.display = "none";
+// document.getElementsByClassName("hidden_library")[0].style.display = "none";
+// document.getElementsByClassName("hidden_searchform")[0].style.display = "none";
+// document.getElementsByClassName("hidden_playlist_display")[0].style.display = "none";
+var init_display = function() {
+    document.getElementsByClassName("hidden_liarary_sort_btns")[0].style.display = "none";
+    document.getElementsByClassName("hidden_library")[0].style.display = "none";
+    document.getElementsByClassName("hidden_add_playlists")[0].style.display = "";
+    document.getElementsByClassName("hidden_playlists")[0].style.display = "";
+    document.getElementsByClassName("hidden_searchform")[0].style.display = "none";
+    document.getElementsByClassName("hidden_playlist_display")[0].style.display = "none";
+    document.getElementsByClassName("hidden_search_result")[0].style.display = "none";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[0].style.color = "rgb(51, 51, 51)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[0].style.color = "rgb(140, 140, 140)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[1].style.color = "rgb(129, 0, 130)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[1].style.color = "rgb(129, 0, 130)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[2].style.color = "rgb(51, 51, 51)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(140, 140, 140)";
+}
+init_display();
 
 var seletLibrary = document.getElementsByClassName("library col-xs-4");
 seletLibrary[0].addEventListener('click', function(event) {
@@ -13,16 +29,18 @@ seletLibrary[0].addEventListener('click', function(event) {
     document.getElementsByClassName("hidden_library")[0].style.display = "";
     document.getElementsByClassName("hidden_searchform")[0].style.display = "none";
     document.getElementsByClassName("hidden_playlist_display")[0].style.display = "none";
+    document.getElementsByClassName("hidden_search_result")[0].style.display = "none";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[0].style.color = "rgb(129, 0, 130)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[0].style.color = "rgb(129, 0, 130)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[1].style.color = "rgb(51, 51, 51)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[1].style.color = "rgb(140, 140, 140)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[2].style.color = "rgb(51, 51, 51)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(140, 140, 140)";
 }, false);
 
 var seletPlaylists = document.getElementsByClassName("playlists col-xs-4");
 seletPlaylists[0].addEventListener('click', function(event) {
-    document.getElementsByClassName("hidden_liarary_sort_btns")[0].style.display = "none";
-    document.getElementsByClassName("hidden_library")[0].style.display = "none";
-    document.getElementsByClassName("hidden_add_playlists")[0].style.display = "";
-    document.getElementsByClassName("hidden_playlists")[0].style.display = "";
-    document.getElementsByClassName("hidden_searchform")[0].style.display = "none";
-    document.getElementsByClassName("hidden_playlist_display")[0].style.display = "none";
+    init_display();
 }, false);
 
 var seletSearch = document.getElementsByClassName("search col-xs-4");
@@ -33,6 +51,13 @@ seletSearch[0].addEventListener('click', function(event) {
     document.getElementsByClassName("hidden_playlists")[0].style.display = "none";
     document.getElementsByClassName("hidden_searchform")[0].style.display = "";
     document.getElementsByClassName("hidden_playlist_display")[0].style.display = "none";
+    document.getElementsByClassName("hidden_search_result")[0].style.display = "";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[0].style.color = "rgb(51, 51, 51)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[0].style.color = "rgb(140, 140, 140)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[1].style.color = "rgb(51, 51, 51)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[1].style.color = "rgb(140, 140, 140)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[2].style.color = "rgb(129, 0, 130)";
+    document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(129, 0, 130)";
 }, false);
 
 var deleteThe = function(name) {
@@ -141,7 +166,7 @@ var hit_selet_sortby_artist = function() {
     // }
 }
 
-var search_songname_ID = function(name) {
+var search_exactly_same_songname_ID = function(name) {
     console.log(name);
     var ID = -1;
     for (var i = 0; i < window.MUSIC_DATA.songs.length; i++) {
@@ -151,6 +176,28 @@ var search_songname_ID = function(name) {
         }
     }
     return ID;
+}
+
+var search_songname_IDs = function(name) {
+    var IDs = [];
+    var re = new RegExp(name, "i");
+    for (var i = 0; i < window.MUSIC_DATA.songs.length; i++) {
+        if (re.test(window.MUSIC_DATA.songs[i].title)) {
+            IDs.push(window.MUSIC_DATA.songs[i].id);
+        }
+    }
+    return IDs;
+}
+
+var search_playlist_IDs = function(name) {
+    var IDs = [];
+    var re = new RegExp(name, "i");
+    for (var i = 0; i < window.MUSIC_DATA.playlists.length; i++) {
+        if (re.test(window.MUSIC_DATA.playlists[i].name)) {
+            IDs.push(window.MUSIC_DATA.playlists[i].id);
+        }
+    }
+    return IDs;
 }
 
 var hit_plus_btn = function() {
@@ -164,7 +211,7 @@ var hit_plus_btn = function() {
                 e1 = document.getElementsByClassName('modal-overlay')[0];
                 e1.style.visibility = "visible";
                 hit_close_playlist();
-                choose_playlist(search_songname_ID(click_song_name));
+                choose_playlist(search_exactly_same_songname_ID(click_song_name));
             }
         })(i)
     }
@@ -301,3 +348,13 @@ var choose_playlist = function(ID) {
         })(i)
     }
 }
+
+var display_search_result = function(playlistIDs, songIDs) {
+
+}
+
+var searchform = document.getElementById("searchform");
+searchform.addEventListener("input", function(event) {
+    var input_value = searchform.value;
+    console.log(search_playlist_IDs(input_value));
+}, false);
