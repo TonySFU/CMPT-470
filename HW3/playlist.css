@@ -67,6 +67,12 @@ small {
     color: white;
 }
 
+.hit_sort_btn {
+    background-color: #ac7cea;
+    box-shadow: 2px 2px 2px black;
+    color: white;
+}
+
 .nav-pills>li+li {
     margin-left: 0px;
 }
@@ -77,6 +83,7 @@ small {
 
 .hidden_searchform {
     padding: 5px 5px 5px 5px;
+    margin-bottom: 0px;
 }
 
 .form-control {

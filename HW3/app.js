@@ -11,7 +11,20 @@ var getHttp = function(request, response) {
     });
 };
 
-var postHttp = function(request, response) {
+// example
+// var postHttp = function(request, response) {
+//     response.statusCode = 200;
+//     var body = '';
+//     request.on('data', function(chunk) {
+//         body += chunk;
+//     });
+//     request.on('end', function() {
+//         console.log(body);
+//         response.end('Successfully added to DB!');
+//     });
+// };
+
+var postFromplaylists = function(request, response) {
     response.statusCode = 200;
     var body = '';
     request.on('data', function(chunk) {
@@ -102,30 +115,24 @@ var server = http.createServer(function(request, response) {
     console.log(request.url);
     if (request.url === '/playlists' && request.method === 'GET') {
         getHttp(request, response);
-    } else if (request.url === '/playlists' && request.method === 'POST') {
-        postHttp(request, response);
     } else if (request.url === '/library' && request.method === 'GET') {
         getHttp(request, response);
-    } else if (request.url === '/library' && request.method === 'POST') {
-        postHttp(request, response);
     } else if (request.url === '/search' && request.method === 'GET') {
         getHttp(request, response);
-    } else if (request.url === '/search' && request.method === 'POST') {
-        postHttp(request, response);
-    } else if (request.url === '/playlist.css') {
+    } else if (request.url === '/playlist.css' && request.method === 'GET') {
         getStylesheet(request, response);
-    } else if (request.url === '/music-app.js') {
+    } else if (request.url === '/music-app.js' && request.method === 'GET') {
         getJavascript(request, response);
-    } else if (request.url === '/songs.jpg') {
+    } else if (request.url === '/songs.jpg' && request.method === 'GET') {
         getSongs_jpg(request, response);
-    } else if (request.url === '/example.png') {
+    } else if (request.url === '/example.png' && request.method === 'GET') {
         getSongs_png(request, response);
-    } else if (request.url === '/music-data.js') {
-        getJavascriptData(request, response);
-    } else if (request.url === '/api/songs') {
+    } else if (request.url === '/api/songs' && request.method === 'GET') {
         getSongsJson(request, response);
-    } else if (request.url === '/api/playlists') {
+    } else if (request.url === '/api/playlists' && request.method === 'GET') {
         getplaylistsJson(request, response);
+    } else if (request.url === '/api/playlists' && request.method === 'POST') {
+        postFromplaylists(request, response);
     } else if (request.url === '/') {
         getRedirect(request, response);
     } else {
