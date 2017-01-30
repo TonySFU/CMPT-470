@@ -3,6 +3,11 @@ window.MUSIC_DATA = {};
 var songsLoaded = false;
 var playlistsLoaded = false;
 
+let songsUl = $(".songs_element").parent();
+let songsLi = $(".songs_element");
+let playlistsUl = $(".playlists_element").parent();
+let playlistsLi = $(".playlists_element");
+
 var runSongUILogic = function() {
     $(".hidden_liarary_sort_btns").show();
     $(".hidden_library").show();
@@ -39,6 +44,9 @@ var runPlaylistUILogic = function() {
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[1].style.color = "rgb(129, 0, 130)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[2].style.color = "rgb(51, 51, 51)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(140, 140, 140)";
+    after_finish_loadplaylists(function() {
+        display_playlist(playlistsUl, playlistsLi, getcurrentplaylistsIDs());
+    });
 }
 $(".playlists").click(function() {
     runPlaylistUILogic();
@@ -50,7 +58,6 @@ var runSearchUILogic = function() {
     $(".hidden_add_playlists").hide();
     $(".hidden_playlist_display").hide();
     $(".hidden_searchform").show();
-
     $(".hidden_library").show();
     $(".hidden_playlists").show();
     //$(".hidden_search_result").show();
@@ -60,6 +67,8 @@ var runSearchUILogic = function() {
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[1].style.color = "rgb(140, 140, 140)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[2].style.color = "rgb(129, 0, 130)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(129, 0, 130)";
+    songsUl.empty();
+    playlistsUl.empty();
 }
 $(".search").click(function() {
     runSearchUILogic();
@@ -75,11 +84,6 @@ if (window.location.href.indexOf('/library') != -1) {
 if (window.location.href.indexOf('/search') != -1) {
     runSearchUILogic();
 }
-
-var songsUl = $(".songs_element").parent();
-var songsLi = $(".songs_element");
-var playlistsUl = $(".playlists_element").parent();
-var playlistsLi = $(".playlists_element");
 
 function display_playlist(Ul, Li, IDs) {
     Ul.empty();
@@ -102,11 +106,79 @@ function display_songlist(Ul, Li, IDs) {
     }
 }
 
+function deleteThe(name) {
+    if (name.startsWith('The ')) {
+        return name.substring(4, name.length)
+    } else
+        return name;
+};
+
+function by(name) {
+    return function(o, p) {
+        var a, b;
+        if (typeof o === "object" && typeof p === "object" && o && p) {
+            a = o[name];
+            b = p[name];
+            a = deleteThe(a);
+            b = deleteThe(b);
+            if (a === b) {
+                return 0;
+            }
+            if (typeof a === typeof b) {
+                return a < b ? -1 : 1;
+            }
+            return typeof a < typeof b ? -1 : 1;
+        } else {
+            throw ("error");
+        }
+    }
+}
+
+function byID(ID) {
+    return function(o, p) {
+        var a, b;
+        if (typeof o === "object" && typeof p === "object" && o && p) {
+            a = o[ID];
+            b = p[ID];
+            if (a === b) {
+                return 0;
+            }
+            if (typeof a === typeof b) {
+                return a < b ? -1 : 1;
+            }
+            return typeof a < typeof b ? -1 : 1;
+        } else {
+            throw ("error");
+        }
+    }
+}
+
+function getcurrentsongsIDs() {
+    var IDs = [];
+    for (var i = 0; i < window.MUSIC_DATA.songs.length; i++) {
+        IDs.push(window.MUSIC_DATA.songs[i].id);
+    }
+    return IDs;
+}
+
+function getcurrentplaylistsIDs() {
+    var IDs = [];
+    for (var i = 0; i < window.MUSIC_DATA.playlists.length; i++) {
+        IDs.push(window.MUSIC_DATA.playlists[i].id);
+    }
+    return IDs;
+}
+
 function hit_select_sortby_artist() {
     $(".sort_by_artist>a").addClass("hit_sort_btn");
     $(".sort_by_title>a").removeClass("hit_sort_btn");
     after_finish_loadsongs(function() {
-        console.log("success hit_select_sortby_artist")
+        console.log("success hit_select_sortby_artist");
+        window.MUSIC_DATA.songs.sort(byID('id'));
+        window.MUSIC_DATA.songs.sort(by('artist'));
+        var IDs = getcurrentsongsIDs();
+        window.MUSIC_DATA.songs.sort(byID('id'));
+        display_songlist(songsUl, songsLi, IDs);
     });
 }
 $(".sort_by_artist").click(function() {
@@ -117,7 +189,12 @@ function hit_select_sortby_title() {
     $(".sort_by_title>a").addClass("hit_sort_btn");
     $(".sort_by_artist>a").removeClass("hit_sort_btn");
     after_finish_loadsongs(function() {
-        console.log("success hit_select_sortby_title")
+        console.log("success hit_select_sortby_title");
+        window.MUSIC_DATA.songs.sort(byID('id'));
+        window.MUSIC_DATA.songs.sort(by('title'));
+        var IDs = getcurrentsongsIDs();
+        window.MUSIC_DATA.songs.sort(byID('id'));
+        display_songlist(songsUl, songsLi, IDs);
     });
 }
 $(".sort_by_title").click(function() {
@@ -158,4 +235,45 @@ function after_finish_loadplaylists(callback) {
     } else {
         callback();
     }
+}
+
+// function hit_add_playlist_btn() {
+//     //console.log("inside hit_add_playlist_btn()")
+// }
+
+//!!!! be careful! Do not put this inside the top function!!!
+$("#playlistsform").keypress(function(e) {
+    if (e.keyCode === 13) {
+        addNewplaylist($("#playlistsform").val());
+        $("#playlistsform").val("");
+        display_playlist(playlistsUl, playlistsLi, getcurrentplaylistsIDs());
+        $(".bs-example-modal-lg").click();
+        post_data_to_server();
+    }
+});
+
+// $(".hidden_add_playlists").click(function() {
+//     after_finish_loadplaylists(function() {
+//         hit_add_playlist_btn();
+//     });
+// })
+
+function addNewplaylist(name) {
+    console.log(name);
+    size = window.MUSIC_DATA["playlists"].length;
+    tmp = jQuery.extend(true, {}, window.MUSIC_DATA["playlists"][size - 1]);
+    tmp.id += 1;
+    tmp.name = name;
+    tmp.songs = [];
+    window.MUSIC_DATA["playlists"].push(tmp);
+}
+
+function post_data_to_server() {
+    var tmp = {}
+    tmp['playlists'] = window.MUSIC_DATA['playlists'];
+    $.post("/api/playlists", JSON.stringify(tmp),
+        function(responseText) {
+            console.log(responseText);
+        }
+    );
 }

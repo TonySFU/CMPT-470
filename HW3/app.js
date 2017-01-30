@@ -24,17 +24,6 @@ var getHttp = function(request, response) {
 //     });
 // };
 
-var postFromplaylists = function(request, response) {
-    response.statusCode = 200;
-    var body = '';
-    request.on('data', function(chunk) {
-        body += chunk;
-    });
-    request.on('end', function() {
-        console.log(body);
-        response.end('Successfully added to DB!');
-    });
-};
 
 var getStylesheet = function(request, response) {
     response.statusCode = 200;
@@ -67,6 +56,7 @@ var getJavascriptData = function(request, response) {
 
 var getRedirect = function(request, response) {
     response.statusCode = 301;
+    response.setHeader('Content-Type', 'text/css');
     response.setHeader('Location', '/playlists');
     response.end('redirecting to playlists');
 };
@@ -104,6 +94,31 @@ var getplaylistsJson = function(request, response) {
         response.end(data);
     });
 }
+
+var postFromplaylists = function(request, response) {
+    var body = '';
+    response.statusCode = 200;
+    filePath = __dirname + '/playlists.json';
+    request.on('data', function(data, err) {
+        body += data;
+    });
+    request.on('end', function() {
+        try {
+            JSON.parse(body);
+        } catch (err) {
+            console.log("not JSON");
+            response.statusCode = 400;
+        } finally {
+            console.log(response.statusCode);
+            if (response.statusCode === 200) {
+                fs.writeFile(filePath, body, function() {
+                    response.end('Successfully added to DB!');
+                });
+            }
+        }
+    });
+}
+
 
 var getElse = function(request, response) {
     getRedirect(request, response);
