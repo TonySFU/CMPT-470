@@ -9,20 +9,21 @@ let playlistsUl = $(".playlists_element").parent();
 let playlistsLi = $(".playlists_element");
 
 var runSongUILogic = function() {
-    $(".hidden_liarary_sort_btns").show();
-    $(".hidden_library").show();
-    $(".hidden_add_playlists").hide();
-    $(".hidden_playlists").hide();
-    $(".hidden_playlist_display").hide();
-    $(".hidden_searchform").hide();
-    //$(".hidden_search_result").hide();
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[0].style.color = "rgb(129, 0, 130)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[0].style.color = "rgb(129, 0, 130)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[1].style.color = "rgb(51, 51, 51)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[1].style.color = "rgb(140, 140, 140)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[2].style.color = "rgb(51, 51, 51)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(140, 140, 140)";
-    hit_select_sortby_artist();
+    hit_select_sortby_artist(function() {
+        $(".hidden_liarary_sort_btns").show();
+        $(".hidden_library").show();
+        $(".hidden_add_playlists").hide();
+        $(".hidden_playlists").hide();
+        $(".hidden_playlist_display").hide();
+        $(".hidden_searchform").hide();
+        //$(".hidden_search_result").hide();
+    });
 }
 
 $(".library").click(function() {
@@ -31,13 +32,6 @@ $(".library").click(function() {
 })
 
 var runPlaylistUILogic = function() {
-    $(".hidden_liarary_sort_btns").hide();
-    $(".hidden_library").hide();
-    $(".hidden_add_playlists").show();
-    $(".hidden_playlists").show();
-    $(".hidden_playlist_display").show();
-    $(".hidden_searchform").hide();
-    //$(".hidden_search_result").hide();
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[0].style.color = "rgb(51, 51, 51)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[0].style.color = "rgb(140, 140, 140)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[1].style.color = "rgb(129, 0, 130)";
@@ -46,6 +40,28 @@ var runPlaylistUILogic = function() {
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(140, 140, 140)";
     after_finish_loadplaylists(function() {
         display_playlist(playlistsUl, playlistsLi, getcurrentplaylistsIDs());
+        $(".hidden_liarary_sort_btns").hide();
+        $(".hidden_library").hide();
+        $(".hidden_add_playlists").show();
+        $(".hidden_playlists").show();
+        $(".hidden_playlist_display").hide();
+        $(".hidden_searchform").hide();
+        //$(".hidden_search_result").hide();
+        after_finish_loadsongs(function() {});
+        $(".playlists_element").click(function() {
+            var Index = $(".playlists_element").index(this);
+            console.log(Index);
+            $(".playlists_name_left_text")[0].textContent = $(".playlists_name")[Index].textContent;
+            console.log($(".playlists_name")[Index].textContent);
+            display_songlist(songsUl, songsLi, MUSIC_DATA.playlists[Index].songs);
+            $(".hidden_liarary_sort_btns").hide();
+            $(".hidden_library").show();
+            $(".hidden_add_playlists").hide();
+            $(".hidden_playlists").hide();
+            $(".hidden_playlist_display").show();
+            $(".hidden_searchform").hide();
+
+        })
     });
 }
 $(".playlists").click(function() {
@@ -54,13 +70,6 @@ $(".playlists").click(function() {
 })
 
 var runSearchUILogic = function() {
-    $(".hidden_liarary_sort_btns").hide();
-    $(".hidden_add_playlists").hide();
-    $(".hidden_playlist_display").hide();
-    $(".hidden_searchform").show();
-    $(".hidden_library").show();
-    $(".hidden_playlists").show();
-    //$(".hidden_search_result").show();
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[0].style.color = "rgb(51, 51, 51)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[0].style.color = "rgb(140, 140, 140)";
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("a")[1].style.color = "rgb(51, 51, 51)";
@@ -69,6 +78,13 @@ var runSearchUILogic = function() {
     document.getElementsByClassName("container-fluid")[0].getElementsByTagName("small")[2].style.color = "rgb(129, 0, 130)";
     songsUl.empty();
     playlistsUl.empty();
+    $(".hidden_liarary_sort_btns").hide();
+    $(".hidden_add_playlists").hide();
+    $(".hidden_playlist_display").hide();
+    $(".hidden_searchform").show();
+    $(".hidden_library").show();
+    $(".hidden_playlists").show();
+    //$(".hidden_search_result").show();
 }
 $(".search").click(function() {
     runSearchUILogic();
@@ -169,7 +185,7 @@ function getcurrentplaylistsIDs() {
     return IDs;
 }
 
-function hit_select_sortby_artist() {
+function hit_select_sortby_artist(callback) {
     $(".sort_by_artist>a").addClass("hit_sort_btn");
     $(".sort_by_title>a").removeClass("hit_sort_btn");
     after_finish_loadsongs(function() {
@@ -179,10 +195,11 @@ function hit_select_sortby_artist() {
         var IDs = getcurrentsongsIDs();
         window.MUSIC_DATA.songs.sort(byID('id'));
         display_songlist(songsUl, songsLi, IDs);
+        callback();
     });
 }
 $(".sort_by_artist").click(function() {
-    hit_select_sortby_artist()
+    hit_select_sortby_artist(function() {});
 })
 
 function hit_select_sortby_title() {
@@ -229,6 +246,8 @@ function after_finish_loadplaylists(callback) {
                 console.log("success get playlists from server");
                 window.MUSIC_DATA['playlists'] = getdataPlaylists.responseJSON.playlists;
                 playlistsLoaded = true;
+                //Sort API Result
+                window.MUSIC_DATA.playlists.sort(byID('id'));
                 callback();
             }
         });

@@ -1,5 +1,10 @@
 module.exports = function(sequelize, DataType) {
-    var Songs_Playlists = sequelize.define('Songs_Playlists', {});
+    var Songs_Playlists = sequelize.define('Songs_Playlists', {
+        id: {
+            type: DataType.INTEGER,
+            primaryKey: true
+        }
+    });
     var Playlist = sequelize.define('Playlist', {
         name: {
             type: DataType.STRING,

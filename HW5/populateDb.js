@@ -28,8 +28,10 @@ models.sequelize.sync({ force: true }).then(function() {
                 id: playlist.id.toString(),
                 name: playlist.name,
             }).then(function(playlistInstance) {
+                //console.log(playlistInstance);
                 //console.log("Insede_then", playlist);
                 playlistInstance.addSongs(playlist.songs);
+                //console.log(playlistInstance.getSongs());
             });
         });
     });

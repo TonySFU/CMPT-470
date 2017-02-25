@@ -1,14 +1,11 @@
 # Requirements Checklist
-* node db.js creates a SQLite database called music.db, populated by the data from songs.json and playlists.json from exercise 3. (2 marks)
-* Your database scheme matches the tables defined here. (2 marks)
-* Your primary keys (id) for each table auto-increments. (1 marks)
-* Your GET /api/playlists pulls data from the database and returns the same data as it did in exercise 3 (matching the content in playlists.json). (2 marks)
-* Your GET /api/songs pulls data from the database and returns the same data as it did in exercise 3 (matching the content in songs.json). (2 marks)
-* Your Music App works with these updated APIs. (1 mark)
+* node populateDb.js creates a SQLite database called music.db, populated by the data from songs.json and playlists.json from exercise 3, using only ORM methods to create the entries in the databases (no raw SQL queries allowed). (3 marks)
+* Your GET /api/playlists pulls data from the database via ORM method calls (no raw SQL queries allowed), and returns the same data as it did in exercise 3 (matching the content in playlists.json). (3 marks)
+* Your GET /api/songs pulls data from the database via ORM method calls (no raw SQL queries allowed), and returns the same data as it did in exercise 3 (matching the content in songs.json). (3 marks)
+* Your Music App works with these updated GET APIs (meaning songs, playlists, and songs in playlists are successfully loaded into your UI matching the mocks from the previous exercises). (1 mark)
+
 # Summary
-My app works great by running "npm install && node db.js && npm start", if there is a error please 
-1. delete node_modules & music.db
-2. stop any node.js app running at prot 3000
+My Node.js version is V7.4.0
 
 I did all the requirements on the Checklist, you can access 
 

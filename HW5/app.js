@@ -1,9 +1,9 @@
-var express = require('express')
 var fs = require('fs');
-var bodyParser = require('body-parser')
-var sqlite3 = require('sqlite3').verbose()
-var db = new sqlite3.Database('music.db')
-var mu = require('mu2');
+var path = require('path');
+var express = require('express');
+var bodyParser = require('body-parser');
+
+var models = require('./models');
 
 // Create new express server
 var app = express();
@@ -11,7 +11,6 @@ app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
-mu.root = __dirname
 
 app.get('/playlists', function(request, response) {
     response.statusCode = 200;
@@ -76,64 +75,65 @@ app.get('/example.png', function(request, response) {
     });
 });
 
+function byID(ID) {
+    return function(o, p) {
+        var a, b;
+        if (typeof o === "object" && typeof p === "object" && o && p) {
+            a = o[ID];
+            b = p[ID];
+            if (a === b) {
+                return 0;
+            }
+            if (typeof a === typeof b) {
+                return a < b ? -1 : 1;
+            }
+            return typeof a < typeof b ? -1 : 1;
+        } else {
+            throw ("error");
+        }
+    }
+}
 
 app.get('/api/playlists', function(request, response) {
     response.statusCode = 200;
     response.setHeader('Content-Type', 'text/json');
     response.setHeader('Cache-Control', 'public,max-age=1800');
-    var query = "SELECT * FROM playlists";
-    console.log(query);
-    db.all(query, function(err, rows) {
-        var tmp = {}
-        tmp['playlists'] = rows;
-        console.log(tmp);
-        var q = "SELECT playlist_id, song_id FROM songs_playlists"
-        db.all(q, function(err, rows) {
-            console.log(rows);
-            for (var i = 0; i < rows.length; i++) {
-                var index = rows[i].playlist_id;
-                if (tmp.playlists[index]['songs']) {
-                    tmp.playlists[index]['songs'].push(rows[i].song_id);
-                } else {
-                    tmp.playlists[index]['songs'] = [];
-                    tmp.playlists[index]['songs'].push(rows[i].song_id);
-                }
-            }
-            console.log(tmp);
-            response.send(JSON.stringify(tmp));
-        });
-    });
+    var combine = {};
+    combine['playlists'] = [];
+    models.Playlist.findAll({ attributes: ['id', 'name'] })
+        .then(function(playlists) {
+            playlists.map(function(playlistInstance) {
+                var first = playlistInstance.get({ plain: true });
+                first['songs'] = [];
+                playlistInstance.getSongs().map(function(t) {
+                    var tmp = t.get({ plain: true });
+                    //console.log(tmp.Songs_Playlists.SongId);
+                    first['songs'].push(tmp.Songs_Playlists.SongId);
+                }).then(function() {
+                    combine['playlists'].push(first);
+                    //console.log(combine);
+                    if (playlists.length === combine['playlists'].length) {
+                        combine.playlists.sort(byID('id'));
+                        response.end(JSON.stringify(combine));
+                    }
+                })
+            })
+        })
 });
 
 app.get('/api/songs', function(request, response) {
     response.statusCode = 200;
     response.setHeader('Content-Type', 'text/json');
     response.setHeader('Cache-Control', 'public,max-age=1800');
-    var query = "SELECT * FROM songs";
-    console.log(query);
-    db.all(query, function(err, rows) {
-        var tmp = {}
-        tmp['songs'] = rows;
-        console.log(rows);
-        response.send(JSON.stringify(tmp))
-    });
+    models.Song.findAll({ attributes: ['album', 'duration', 'title', 'id', 'artist'] })
+        .then(function(songs) {
+            var tmp = {};
+            tmp['songs'] = songs.map(function(song) {
+                return song.get({ plain: true });
+            })
+            response.end(JSON.stringify(tmp));
+        })
 });
-
-// var getSongsJson = function(request, response) {
-//     response.statusCode = 200;
-//     response.setHeader('Content-Type', 'application/json');
-//     fs.readFile(__dirname + '/songs.json', function(err, data) {
-//         response.end(data);
-//     });
-// }
-
-// var getplaylistsJson = function(request, response) {
-//     response.statusCode = 200;
-//     response.setHeader('Content-Type', 'application/json');
-//     fs.readFile(__dirname + '/playlists.json', function(err, data) {
-//         response.end(data);
-//     });
-// }
 
 app.post('/api/playlists', function(request, response) {
     // var body = '';
