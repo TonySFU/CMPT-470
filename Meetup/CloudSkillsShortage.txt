@@ -1,1 +1,8 @@
-I joined the Cloud Shortage 
+I joined a local Meetup at CodeCore at Feb 20th 6 PM; this was the first I attend tech meetup in Vancouver.
+This meeting hosted by Vancouver Google Technology User Group and Public-Cloud User Group. There were three things they talked about, recap on the Cloud Announcements in Jan/Feb 2017, Cloud Skills Shortage from engineers and managers view. Lightning talk about AWS certifications.
+In the Cloud Announcements part, Speaker gave us a brief recap about the cloud company(Microsoft, Amazon Google, IBM, etc.) update in Jan and Feb. The container has become the mainstream of web develop; Docker is the top DevOps tools 35%. Private and hybrid cloud reached their peaks last year and are declining. 85% of enterprises are using multiple clouds and Oracle Cloud and DigitalOcean on the decline. IBM announced Machine Learning for the Private Cloud.
+In the Cloud Skills Shortage, speaker focus on the Security skills. Most of the developer thought Cloud would take care of the security part, but in the real world, if your website got attack Cloud service company just shutdown your machine, so your service is unusable until you fix it. He also points out it is 76/100 difficult to find a person who has both cloud security skills.
+In the end, one guy give us a lighting talk about AWS certification, it looks like the Cisco certification, but it is for the cloud architect. I think it is very helpful for people who want to find a job in Amazon. He also gave us lots of resources to learning how to use AWS.
+This meetup not very technical, everyone in the meeting looks very nice. It was an excellent experience. Thank you for let me know the informaiton.
+
+Here are some photos I took in this meetup.
