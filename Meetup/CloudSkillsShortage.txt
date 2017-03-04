@@ -3,6 +3,9 @@ This meeting hosted by Vancouver Google Technology User Group and Public-Cloud U
 In the Cloud Announcements part, Speaker gave us a brief recap about the cloud company(Microsoft, Amazon Google, IBM, etc.) update in Jan and Feb. The container has become the mainstream of web develop; Docker is the top DevOps tools 35%. Private and hybrid cloud reached their peaks last year and are declining. 85% of enterprises are using multiple clouds and Oracle Cloud and DigitalOcean on the decline. IBM announced Machine Learning for the Private Cloud.
 In the Cloud Skills Shortage, speaker focus on the Security skills. Most of the developer thought Cloud would take care of the security part, but in the real world, if your website got attack Cloud service company just shutdown your machine, so your service is unusable until you fix it. He also points out it is 76/100 difficult to find a person who has both cloud security skills.
 In the end, one guy give us a lighting talk about AWS certification, it looks like the Cisco certification, but it is for the cloud architect. I think it is very helpful for people who want to find a job in Amazon. He also gave us lots of resources to learning how to use AWS.
-This meetup not very technical, everyone in the meeting looks very nice. It was an excellent experience. Thank you for let me know the informaiton.
+This meetup not very technical, everyone in the meeting looks very nice. It was an excellent experience. Thank you for let me know the information.
 
 Here are some photos I took in this meetup.
+https://github.com/TonySFU/CMPT-470/blob/master/Meetup/IMG_1593.jpg
+https://github.com/TonySFU/CMPT-470/blob/master/Meetup/IMG_1597.jpg
+https://github.com/TonySFU/CMPT-470/blob/master/Meetup/IMG_1602.jpg
